@@ -12,7 +12,7 @@ export default class UsersPage extends BasePage {
         await this.page.goto('/explore/users');
     }
 
-    async searchForUser(username) {
+    async searchForUser(username: string) {
         await this.searchField.fill(username);
         await this.searchButton.click();
     }

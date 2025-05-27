@@ -1,4 +1,4 @@
-import { Locator } from "@playwright/test";
+import { expect, Locator } from "@playwright/test";
 import BasePage from "../basePage";
 
 export default class RegisterPage extends BasePage {
@@ -16,19 +16,30 @@ export default class RegisterPage extends BasePage {
         await this.page.goto('/user/sign_up')
     }
 
-    async enterUsername(username) {
+    async verifyRegisterFormUI() {
+        await expect(this.formName).toHaveText('Register');
+        expect(this.usernameField).toBeVisible;
+        expect(this.emailAddressField).toBeVisible;
+        expect(this.passwordField).toBeVisible;
+        expect(this.confirmPasswordField).toBeVisible;
+        expect(this.registerButton).toBeVisible;
+        expect(this.openIdButton).toBeVisible;
+        expect(this.alreadyHaveAccountLink).toBeVisible;
+    }
+
+    async enterUsername(username: string) {
         await this.usernameField.fill(username);
     }
 
-    async enterEmail(email) {
+    async enterEmail(email: string) {
         await this.emailAddressField.fill(email);
     }
 
-    async enterPassword(password) {
+    async enterPassword(password: string) {
         await this.passwordField.fill(password);
     }
 
-    async confirmPassword(password) {
+    async confirmPassword(password: string) {
         await this.confirmPasswordField.fill(password);
     }
 
@@ -36,7 +47,7 @@ export default class RegisterPage extends BasePage {
         await this.registerButton.click();
     }
 
-    async registerWithCredentials(username, email, password) {
+    async registerWithCredentials(username: string, email: string, password: string) {
         await this.usernameField.fill(username);
         await this.emailAddressField.fill(email);
         await this.passwordField.fill(password);

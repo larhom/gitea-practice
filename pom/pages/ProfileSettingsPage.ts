@@ -16,23 +16,27 @@ export default class ProfileSettingsPage extends BasePage {
     readonly deleteAvatarButton: Locator = this.page.locator('button[class="ui red button link-action"]');
     readonly successUpdateMessage: Locator = this.page.locator('[class="ui positive message flash-message flash-success"]')
 
-    async enterUsername(username) {
+    async openPage () {
+        await this.page.goto('/user/settings')
+    }
+    
+    async enterUsername(username: string) {
         await this.usernameField.fill(username);
     }
 
-    async enterFullName(fullName) {
+    async enterFullName(fullName: string) {
         await this.fullNameField.fill(fullName);
     }
 
-    async enterBiography(biography) {
+    async enterBiography(biography: string) {
         await this.biographyField.fill(biography);
     }
     
-    async enterWebSite(webSite) {
+    async enterWebSite(webSite: string) {
         await this.webSiteField.fill(webSite);
     }
       
-    async enterLocation(location) {
+    async enterLocation(location: string) {
         await this.locationField.fill(location);
     }
     

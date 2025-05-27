@@ -22,15 +22,8 @@ test.describe ('Positive Sign Up tests', () => {
     await registerPage.openPage();
   })
 
-  test('Verify the register form UI', async ({ page }) => {
-    await expect(registerPage.formName).toHaveText('Register');
-    expect(registerPage.usernameField).toBeVisible;
-    expect(registerPage.emailAddressField).toBeVisible;
-    expect(registerPage.passwordField).toBeVisible;
-    expect(registerPage.confirmPasswordField).toBeVisible;
-    expect(registerPage.registerButton).toBeVisible;
-    expect(registerPage.openIdButton).toBeVisible;
-    expect(registerPage.alreadyHaveAccountLink).toBeVisible;
+  test('Verify the register form UI', async () => {
+    await registerPage.verifyRegisterFormUI();
   })
 
   test('OpenId button redirects to the OpenId login page', async ({ page }) => {
@@ -45,7 +38,7 @@ test.describe ('Positive Sign Up tests', () => {
     await expect (signInPage.formName).toHaveText('Sign In')
   })
 
-  test ('Successful registration', async ({ page }) => {
+  test ('Successful registration', async () => {
     await registerPage.registerWithCredentials(testUser.users.QaAutoUser1.username, testUser.users.QaAutoUser1.email, testUser.users.QaAutoUser1.password);
     await expect (mainPage.accountCreatedMessage).toHaveText('Account was successfully created. Welcome!');
     await expect (mainPage.switchDashboardDropdown).toHaveText(testUser.users.QaAutoUser1.username);

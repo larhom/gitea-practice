@@ -8,6 +8,7 @@ export default class Header extends BasePage {
     readonly profileLink: Locator = this.page.locator('#_aria_auto_id_8');
     readonly settingsLink: Locator = this.page.locator('a[href="/user/settings"]')
     readonly signOutLink: Locator = this.page.locator('a[data-url="/user/logout"]');
+    readonly profileImage: Locator = this.page.locator('img[class="ui avatar tw-align-middle tw-mr-1"]');
    
     async clickExploreLink () {
         await this.exploreLink.click();

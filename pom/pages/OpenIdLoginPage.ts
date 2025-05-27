@@ -12,7 +12,7 @@ export default class OpenIdLoginPage extends BasePage {
         await this.page.goto('/user/login/openid')
     }
 
-    async enterOpenId(openId) {
+    async enterOpenId(openId: string) {
         await this.openIdUriField.fill(openId);
     }
 

@@ -16,15 +16,15 @@ export default class SignInPage extends BasePage {
         await this.page.goto('/user/login')
     }
 
-    async enterUsername(username) {
+    async enterUsername(username: string) {
         await this.usernameOrEmailField.fill(username);
     }
 
-    async enterEmail(email) {
+    async enterEmail(email: string) {
         await this.usernameOrEmailField.fill(email);
     }
 
-    async enterPassword(password) {
+    async enterPassword(password: string) {
         await this.passwordField.fill(password);
     }
 
@@ -52,13 +52,13 @@ export default class SignInPage extends BasePage {
         await this.needAccountLink.click();
     }
 
-    async signInWithUsername(username, password) {
+    async signInWithUsername(username: string, password: string) {
         await this.usernameOrEmailField.fill(username);
         await this.passwordField.fill(password);
         await this.signInButton.click();
     }
 
-    async signInWithEmail(email, password) {
+    async signInWithEmail(email: string, password: string) {
         await this.usernameOrEmailField.fill(email);
         await this.passwordField.fill(password);
         await this.signInButton.click();

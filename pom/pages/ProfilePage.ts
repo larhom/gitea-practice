@@ -1,5 +1,6 @@
 import { Locator } from "@playwright/test";
 import BasePage from "../basePage";
+import { UserGenerator } from "../../testdata/users";
 
 export default class ProfilePage extends BasePage {
     readonly profileUsername: Locator = this.page.locator('[class="username text center"]');
@@ -9,4 +10,7 @@ export default class ProfilePage extends BasePage {
     readonly profileBiography: Locator = this.page.locator('p[dir="auto"]');
     readonly profileWebSite: Locator = this.page.locator('li>a[target="_blank"]');
     
+    async openPage (username: string) {
+        await this.page.goto(`/${username}`)
+    }
 }
