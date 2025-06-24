@@ -39,10 +39,11 @@ export default defineConfig({
       name: 'setup',
       use: { ...devices['Desktop Chrome'] },
       testMatch: "*setup/*.ts"
-    },    
+    },   
     {
       name: 'smoke',
       use: { ...devices['Desktop Chrome'] },
+      testIgnore: '*setup/*.ts',
       dependencies: ['setup'],
     },
 

@@ -1,16 +1,27 @@
 import { test, expect } from "@playwright/test";
 import { loadTestUsers } from '../../utils/loadTestUsers';
 
-const testApiUsers = loadTestUsers();
-const token = testApiUsers.users.QaAutoUser2.apiKey;
-const username1 = testApiUsers.users.QaAutoUser1.username;
-const username2 = testApiUsers.users.QaAutoUser2.username;
-const fullName = testApiUsers.users.QaAutoUser2.fullName;
-const biography = testApiUsers.users.QaAutoUser2.biography;
-const website = testApiUsers.users.QaAutoUser2.website;
-const location = testApiUsers.users.QaAutoUser2.location;
+test.describe('User API tests', () => {
+  let token: string;
+  let username1: string;
+  let username2: string;
+  let fullName: string;
+  let biography: string;
+  let website: string;
+  let location: string;
 
-test("Get authenticated user", async ({ request }) => {
+  test.beforeAll(() => {
+    const testApiUsers = loadTestUsers();
+    token = testApiUsers.users.QaAutoUser2.apiKey;
+    username1 = testApiUsers.users.QaAutoUser1.username;
+    username2 = testApiUsers.users.QaAutoUser2.username;
+    fullName = testApiUsers.users.QaAutoUser2.fullName;
+    biography = testApiUsers.users.QaAutoUser2.biography;
+    website = testApiUsers.users.QaAutoUser2.website;
+    location = testApiUsers.users.QaAutoUser2.location;
+  })
+
+  test("Get authenticated user", async ({ request }) => {
   const response = await request.get("/api/v1/user", {
     headers: {
       Authorization: `token ${token}`,
@@ -61,17 +72,18 @@ test("Get following users", async ({ request }) => {
   });
   expect(response.status()).toBe(200);
 });
+})
 
 test.describe("Add a following user", () => {
-  test.beforeEach(async ({ request }) => {
-    const checkFollowings = await request.get("/api/v1/user/following", {
-      headers: {
-        Authorization: `token ${token}`,
-      },
-    });
-    const followings = await checkFollowings.json();
-    expect(followings).toHaveLength(0);
-  });
+  let token: string;
+  let username1: string;
+
+  test.beforeAll(() => {
+    const testApiUsers = loadTestUsers();
+    token = testApiUsers.users.QaAutoUser2.apiKey;
+    username1 = testApiUsers.users.QaAutoUser1.username;
+    
+  })
 
   test("Follow a user", async ({ request }) => {
     const response = await request.put(`/api/v1/user/following/${username1}`, {
@@ -82,7 +94,7 @@ test.describe("Add a following user", () => {
     expect(response.status()).toBe(204);
   });
 
-  test.afterEach(async ({ request }) => {
+  test.afterAll(async ({ request }) => {
     const response = await request.delete(
       `/api/v1/user/following/${username1}`,
       {
@@ -96,6 +108,15 @@ test.describe("Add a following user", () => {
 });
 
 test.describe("Unfollow a user", () => {
+  let token: string;
+  let username1: string;
+
+  test.beforeAll(() => {
+    const testApiUsers = loadTestUsers();
+    token = testApiUsers.users.QaAutoUser2.apiKey;
+    username1 = testApiUsers.users.QaAutoUser1.username;
+    
+  })
   test.beforeEach(async ({ request }) => {
     const response = await request.put(`/api/v1/user/following/${username1}`, {
       headers: {

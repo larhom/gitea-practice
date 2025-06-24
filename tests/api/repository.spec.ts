@@ -1,13 +1,17 @@
 import { test, expect } from "@playwright/test";
 import { loadTestUsers } from '../../utils/loadTestUsers';
 
-const testApiUsers = loadTestUsers();
-
 test.describe("Repository API tests", () => {
-  const token = testApiUsers.users.QaAutoUser2.apiKey;
-  const owner = testApiUsers.users.QaAutoUser2.username;
+  let token: string;
+  let owner: string;
   let repo = "test-repo-1";
   let repoId: number;
+
+  test.beforeAll(() => {
+    const testApiUsers = loadTestUsers();
+    token = testApiUsers.users.QaAutoUser2.apiKey;
+    owner = testApiUsers.users.QaAutoUser2.username;
+  });
 
   test.beforeEach(async ({ request }) => {
     const response = await request.post("/api/v1/user/repos", {
