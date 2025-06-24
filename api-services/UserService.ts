@@ -78,4 +78,18 @@ export default class UserService {
     );
     return response;
   }
+
+  async addUserSecret(token: string, secretname: string, secretvalue: string) {
+
+    const response = await this.request.put(`/api/v1/user/actions/variables/${secretname}`, {
+        headers: {
+            Authorization: `token ${token}`,
+        },
+        data: {
+            name: secretname,
+            value: secretvalue
+        }
+    });
+    return response;
+  }
 }

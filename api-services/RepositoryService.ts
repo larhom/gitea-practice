@@ -34,23 +34,73 @@ export default class RepositoryService {
   }
 
   async updateRepository(token: string, owner: string, repo: string) {
-    const response = await this.request.patch(`/api/v1/repos/${owner}/${repo}`, {
-      headers: {
-        Authorization: `token ${token}`,
-      },
-      data: {
-        name: `${repo}-updated`,
-      },
-    });
-    return response;
-}
-
-    async deleteRepository(token: string, owner: string, repo: string) {
-        const response = await this.request.delete(`/api/v1/repos/${owner}/${repo}`, {
+    const response = await this.request.patch(
+      `/api/v1/repos/${owner}/${repo}`,
+      {
         headers: {
           Authorization: `token ${token}`,
         },
-      });
-      return response;
+        data: {
+          name: `${repo}-updated`,
+        },
+      }
+    );
+    return response;
+  }
+
+  async deleteRepository(token: string, owner: string, repo: string) {
+    const response = await this.request.delete(
+      `/api/v1/repos/${owner}/${repo}`,
+      {
+        headers: {
+          Authorization: `token ${token}`,
+        },
+      }
+    );
+    return response;
+  }
+
+  async getAllBranches(token: string, owner: string, repo: string) {
+    const response = await this.request.get(
+      `/api/v1/repos/${owner}/${repo}/branches`,
+      {
+        headers: {
+          Authorization: `token ${token}`,
+        }
+      }
+    );
+    return response;
+  }
+
+  async getCollaborators(token: string, owner: string, repo: string) {
+    const response = await this.request.get(`/api/v1/repos/${owner}/${repo}/collaborators`, {
+        headers: {
+            Authorization: `token ${token}`,
     }
+}
+);
+return response;
+}
+
+  async addCollaborator(token: string, owner: string, repo: string, collaborator: string) {
+    const response = await this.request.put(`/api/v1/repos/${owner}/${repo}/collaborators/${collaborator}`, {
+        headers: {
+            Authorization: `token ${token}`,
+        },
+        data: {
+            permission: 'write',
+        }
+    }
+);
+    return response;
+  }
+
+  async deleteCollaborator(token: string, owner: string, repo: string, collaborator: string) {
+    const response = await this.request.delete(`/api/v1/repos/${owner}/${repo}/collaborators/${collaborator}`, {
+      headers: {
+        Authorization: `token ${token}`,
+      },
+    });
+    return response;
+  }
 }

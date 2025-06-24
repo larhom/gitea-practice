@@ -7,12 +7,14 @@ test.describe("Repository API tests", () => {
   let owner: string;
   let repo = "test-repo-1";
   let repoId: number;
+  let collaborator: string;
   let repositoryService: RepositoryService;
 
   test.beforeAll(() => {
     const testApiUsers = loadTestUsers();
     token = testApiUsers.users.QaAutoUser2.apiKey;
     owner = testApiUsers.users.QaAutoUser2.username;
+    collaborator = testApiUsers.users.QaAutoUser1.username;
   });
 
   test.beforeEach(async ({ request }) => {
@@ -52,6 +54,28 @@ test.describe("Repository API tests", () => {
       expect(response.status()).toBe(204);
   })
 
+  test('Get all branches in the repo', async() => {
+    const response = await repositoryService.getAllBranches(token, owner, repo);
+    expect(response.status()).toBe(200);
+  })
+
+  test('Get all collaborators', async() => {
+    const response = await repositoryService.getCollaborators(token, owner, repo);
+    expect(response.status()).toBe(200);
+  })
+
+  test ('Add a collaborator', async () => {
+    const response = await repositoryService.addCollaborator(token, owner, repo, collaborator);
+    expect(response.status()).toBe(204);
+  })
+
+  test('Delete a collaborator', async () => {
+    const addNewCollaborator = await repositoryService.addCollaborator(token, owner, repo, collaborator);
+    expect(addNewCollaborator.status()).toBe(204);
+    const deleteCollaborator = await repositoryService.deleteCollaborator(token, owner, repo, collaborator);
+    expect(deleteCollaborator.status()).toBe(204);
+  })
+
   test.afterEach(async () => {
     const repoExists = await repositoryService.getRepositoryById(token, repoId);
     if (repoExists.status() === 200) {
@@ -59,4 +83,5 @@ test.describe("Repository API tests", () => {
       expect(deleteRepo.status()).toBe(204);
     }
   });
-});
+})
+

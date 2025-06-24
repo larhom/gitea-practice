@@ -54,6 +54,7 @@ test("Get following users", async () => {
   const response = await userService.getFollowingUsers(token);
   expect(response.status()).toBe(200);
 });
+
 })
 
 test.describe("Add a following user", () => {
