@@ -4,41 +4,54 @@ import { UserGenerator } from '../../testdata/users';
 import fs from 'fs';
 import path from 'path';
 import MainPage from '../../pom/pages/MainPage';
+import ProfileSettingsPage from '../../pom/pages/ProfileSettingsPage';
 
-test('Sign up and save a storage state of the first user', async ({ page }) => {
-    const registerPage = new RegisterPage(page);
-    const mainPage = new MainPage(page);
+test('Sign up and save storage states for two users', async ({ browser }) => {
     const testUser = new UserGenerator();
 
-    await registerPage.openPage();
-    await registerPage.registerWithCredentials(testUser.users.QaAutoUser1.username, testUser.users.QaAutoUser1.email, testUser.users.QaAutoUser1.password);
-    
-    await expect (mainPage.accountCreatedMessage).toHaveText('Account was successfully created. Welcome!');
-    await expect (mainPage.switchDashboardDropdown).toHaveText(testUser.users.QaAutoUser1.username);
+    // First user: new context
+    const context1 = await browser.newContext();
+    const page1 = await context1.newPage();
+    const registerPage1 = new RegisterPage(page1);
+    const mainPage1 = new MainPage(page1);
+    const profileSettingsPage1 = new ProfileSettingsPage(page1);
 
-    await page.context().storageState({ path: '.auth/testUser1-state.json' })
+    await registerPage1.openPage();
+    await registerPage1.registerWithCredentials(
+        testUser.users.QaAutoUser1.username,
+        testUser.users.QaAutoUser1.email,
+        testUser.users.QaAutoUser1.password
+    );
+    await expect(mainPage1.accountCreatedMessage).toHaveText('Account was successfully created. Welcome!');
+    await expect(mainPage1.switchDashboardDropdown).toHaveText(testUser.users.QaAutoUser1.username);
+    const apiKey1 = await profileSettingsPage1.generateToken('new_token');
+    testUser.users.QaAutoUser1.apiKey = apiKey1;
 
-    const userDataPath = path.resolve(__dirname, '../../.auth/testUser1-user.json');
-    fs.writeFileSync(userDataPath, JSON.stringify(testUser, null, 2));
+    await context1.storageState({ path: '.auth/testUser1-state.json' });
+    await context1.close();
 
-    page.close();
-})
+    // Second user: new context
+    const context2 = await browser.newContext();
+    const page2 = await context2.newPage();
+    const registerPage2 = new RegisterPage(page2);
+    const mainPage2 = new MainPage(page2);
+    const profileSettingsPage2 = new ProfileSettingsPage(page2)
 
-test('Sign up and save a storage state of the second user', async ({ page }) => {
-    const registerPage = new RegisterPage(page);
-    const mainPage = new MainPage(page);
-    const testUser = new UserGenerator();
+    await registerPage2.openPage();
+    await registerPage2.registerWithCredentials(
+        testUser.users.QaAutoUser2.username,
+        testUser.users.QaAutoUser2.email,
+        testUser.users.QaAutoUser2.password
+    );
+    await expect(mainPage2.accountCreatedMessage).toHaveText('Account was successfully created. Welcome!');
+    await expect(mainPage2.switchDashboardDropdown).toHaveText(testUser.users.QaAutoUser2.username);
+    const apiKey2 = await profileSettingsPage2.generateToken('new_token');
+    testUser.users.QaAutoUser2.apiKey = apiKey2;
 
-    await registerPage.openPage();
-    await registerPage.registerWithCredentials(testUser.users.QaAutoUser2.username, testUser.users.QaAutoUser2.email, testUser.users.QaAutoUser2.password);
-    
-    await expect (mainPage.accountCreatedMessage).toHaveText('Account was successfully created. Welcome!');
-    await expect (mainPage.switchDashboardDropdown).toHaveText(testUser.users.QaAutoUser2.username);
+    await context2.storageState({ path: '.auth/testUser2-state.json' });
+    await context2.close();
 
-    await page.context().storageState({ path: '.auth/testUser2-state.json' })
-
-    const userDataPath = path.resolve(__dirname, '../../.auth/testUser2-user.json');
-    fs.writeFileSync(userDataPath, JSON.stringify(testUser, null, 2));
-
-    page.close();
-})
+    // Save both users to testUsers.json
+    const userDataPath = path.resolve(__dirname, '../../.auth/testUsers-user.json');
+    fs.writeFileSync(userDataPath, JSON.stringify({ users: testUser.users }, null, 2));
+});

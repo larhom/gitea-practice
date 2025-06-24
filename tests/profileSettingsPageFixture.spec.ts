@@ -11,8 +11,8 @@ import path from 'path';
 // import ProfilePage from '../pom/pages/ProfilePage';
 // import UsersPage from '../pom/pages/UsersPage';
 // import { Locator } from '@playwright/test';
-import { loadTestUser1 } from '../utils/loadTestUser';
-import { loadTestUser2 } from '../utils/loadTestUser';
+import { loadTestUsers } from '../utils/loadTestUsers';
+// import { loadTestUser2 } from '../utils/loadTestUsers';
 import { Locator } from '@playwright/test';
 
 // let testUser = new UserGenerator();
@@ -43,60 +43,61 @@ import { Locator } from '@playwright/test';
 //   })
 
 test.describe ('Profile Settings tests', () => {
-  let testUser: any;
+  let testUsers: any;
   test.beforeEach  (async({ storageStatePage }) => {
     await storageStatePage.goto('/user/settings')
-    testUser = loadTestUser1();
+    testUsers = loadTestUsers();
   })
 
   test('Full name can be added on the profile settings page', async ({ profileSettingsPage, profilePage }) => {
-    await profileSettingsPage.enterFullName(testUser.users.QaAutoUser1.fullName);
+    await profileSettingsPage.enterFullName(testUsers.users.QaAutoUser1.fullName);
     await profileSettingsPage.clickUpdateProfileButton();
     await expect (profileSettingsPage.successUpdateMessage).toHaveText('Your profile has been updated.');
-    await expect (profileSettingsPage.fullNameField).toHaveValue(testUser.users.QaAutoUser1.fullName);
-    await profilePage.openPage(testUser.users.QaAutoUser1.username);
-    await expect (profilePage.profileFullName).toHaveText(testUser.users.QaAutoUser1.fullName);
+    await expect (profileSettingsPage.fullNameField).toHaveValue(testUsers.users.QaAutoUser1.fullName);
+    await profilePage.openPage(testUsers.users.QaAutoUser1.username);
+    await expect (profilePage.profileFullName).toHaveText(testUsers.users.QaAutoUser1.fullName);
   })
 
   test('Biography can be added on the profile settings page', async ({ profileSettingsPage, profilePage }) => {
-    await profileSettingsPage.enterBiography(testUser.users.QaAutoUser1.biography);
+    await profileSettingsPage.enterBiography(testUsers.users.QaAutoUser1.biography);
     await profileSettingsPage.clickUpdateProfileButton();
     await expect (profileSettingsPage.successUpdateMessage).toHaveText('Your profile has been updated.');
-    await expect (profileSettingsPage.biographyField).toHaveValue(testUser.users.QaAutoUser1.biography);
-    await profilePage.openPage(testUser.users.QaAutoUser1.username);
-    await expect (profilePage.profileBiography).toHaveText(testUser.users.QaAutoUser1.biography);
+    await expect (profileSettingsPage.biographyField).toHaveValue(testUsers.users.QaAutoUser1.biography);
+    await profilePage.openPage(testUsers.users.QaAutoUser1.username);
+    await expect (profilePage.profileBiography).toHaveText(testUsers.users.QaAutoUser1.biography);
   })
 
   test('Website can be added on the profile settings page', async ({ profileSettingsPage, profilePage }) => {
-    await profileSettingsPage.enterWebSite(testUser.users.QaAutoUser1.website);
+    await profileSettingsPage.enterWebSite(testUsers.users.QaAutoUser1.website);
     await profileSettingsPage.clickUpdateProfileButton();
     await expect (profileSettingsPage.successUpdateMessage).toHaveText('Your profile has been updated.');
-    await expect (profileSettingsPage.webSiteField).toHaveValue(testUser.users.QaAutoUser1.website);
-    await profilePage.openPage(testUser.users.QaAutoUser1.username);
-    await expect (profilePage.profileWebSite).toHaveText(testUser.users.QaAutoUser1.website);
+    await expect (profileSettingsPage.webSiteField).toHaveValue(testUsers.users.QaAutoUser1.website);
+    await profilePage.openPage(testUsers.users.QaAutoUser1.username);
+    await expect(profilePage.profileWebSite).toBeVisible();
+    await expect (profilePage.profileWebSite).toHaveText(testUsers.users.QaAutoUser1.website);
   })
 
   test('Location can be added on the profile settings page', async ({ profileSettingsPage, profilePage }) => {
-    await profileSettingsPage.enterLocation(testUser.users.QaAutoUser1.location);
+    await profileSettingsPage.enterLocation(testUsers.users.QaAutoUser1.location);
     await profileSettingsPage.clickUpdateProfileButton();
     await expect (profileSettingsPage.successUpdateMessage).toHaveText('Your profile has been updated.');
-    await expect (profileSettingsPage.locationField).toHaveValue(testUser.users.QaAutoUser1.location);
-    await profilePage.openPage(testUser.users.QaAutoUser1.username);
-    await expect (profilePage.profileLocation).toHaveText(testUser.users.QaAutoUser1.location);
+    await expect (profileSettingsPage.locationField).toHaveValue(testUsers.users.QaAutoUser1.location);
+    await profilePage.openPage(testUsers.users.QaAutoUser1.username);
+    await expect (profilePage.profileLocation).toHaveText(testUsers.users.QaAutoUser1.location);
   })
 
   test('Email address can be hidden on the profile settings page', async ({ profileSettingsPage, usersPage }) => {
     await usersPage.openPage();
-    await usersPage.searchForUser(testUser.users.QaAutoUser1.username);
-    await expect (usersPage.searchResult).toContainText(testUser.users.QaAutoUser1.username);
+    await usersPage.searchForUser(testUsers.users.QaAutoUser1.username);
+    await expect (usersPage.searchResult).toContainText(testUsers.users.QaAutoUser1.username);
     await expect (usersPage.userEmail).toBeVisible();
     await profileSettingsPage.openPage();
     await profileSettingsPage.checkHideEmailAddressCheckbox();
     await profileSettingsPage.clickUpdateProfileButton();
     await expect (profileSettingsPage.hideEmailAddressCheckbox).toBeChecked();
     await usersPage.openPage();
-    await usersPage.searchForUser(testUser.users.QaAutoUser1.username);
-    await expect (usersPage.searchResult).toContainText(testUser.users.QaAutoUser1.username);
+    await usersPage.searchForUser(testUsers.users.QaAutoUser1.username);
+    await expect (usersPage.searchResult).toContainText(testUsers.users.QaAutoUser1.username);
     await expect (usersPage.userEmail).not.toBeVisible();
   })
 
@@ -115,11 +116,11 @@ test.describe ('Profile Settings tests', () => {
 
 test.describe ('Profile Settings tests that require the second user', () => {
 
-  let testUser1: any;
-  let testUser2: any
+  let testUsers: any;
+  // let testUser2: any
   loggedOutTest.beforeEach  (async({ }) => {
-    testUser1 = loadTestUser1();
-    testUser2 = loadTestUser2();
+    testUsers = loadTestUsers();
+    // testUser2 = loadTestUser2();
   })
 //   let registerPage: RegisterPage;
 //   let testUser: UserGenerator;
@@ -153,12 +154,12 @@ test.describe ('Profile Settings tests that require the second user', () => {
   loggedOutTest('Profile visibility can be changed to limited on the profile settings page', async ({ usersPage, signInPage, header, profileSettingsPage, mainPage }) => {
     await loggedOutTest.step('Check the user is visible in the list of users by default', async () => {
       await usersPage.openPage();
-      await usersPage.searchForUser(testUser1.users.QaAutoUser1.username);
-      await expect (usersPage.searchResult).toContainText(testUser1.users.QaAutoUser1.username);
+      await usersPage.searchForUser(testUsers.users.QaAutoUser1.username);
+      await expect (usersPage.searchResult).toContainText(testUsers.users.QaAutoUser1.username);
     });
     await loggedOutTest.step('Change the user visibility to limited', async () => {
       await signInPage.openPage();
-      await signInPage.signInWithEmail(testUser1.users.QaAutoUser1.email, testUser1.users.QaAutoUser1.password);
+      await signInPage.signInWithEmail(testUsers.users.QaAutoUser1.email, testUsers.users.QaAutoUser1.password);
       await profileSettingsPage.openPage();
       await profileSettingsPage.makeUserLimitedVisible();
     });
@@ -166,16 +167,16 @@ test.describe ('Profile Settings tests that require the second user', () => {
       await header.signOut();
       await expect (mainPage.loggedOutUserHeader).toBeVisible();
       await usersPage.openPage();
-      await usersPage.searchForUser(testUser1.users.QaAutoUser1.username);
+      await usersPage.searchForUser(testUsers.users.QaAutoUser1.username);
       await expect (usersPage.noSearchResults).toBeVisible();
     });
     await loggedOutTest.step('Check the limited user is visible for signed users', async () => {
       await signInPage.openPage();
-      await signInPage.signInWithEmail(testUser2.users.QaAutoUser2.email, testUser2.users.QaAutoUser2.password);
-      await expect (mainPage.switchDashboardDropdown).toHaveText(testUser2.users.QaAutoUser2.username);
+      await signInPage.signInWithEmail(testUsers.users.QaAutoUser2.email, testUsers.users.QaAutoUser2.password);
+      await expect (mainPage.switchDashboardDropdown).toHaveText(testUsers.users.QaAutoUser2.username);
       await usersPage.openPage();
-      await usersPage.searchForUser(testUser1.users.QaAutoUser1.username);
-      await expect (usersPage.searchResult).toContainText(testUser1.users.QaAutoUser1.username);
+      await usersPage.searchForUser(testUsers.users.QaAutoUser1.username);
+      await expect (usersPage.searchResult).toContainText(testUsers.users.QaAutoUser1.username);
     });
   })
 
@@ -186,7 +187,7 @@ test.describe ('Profile Settings tests that require the second user', () => {
     let src3: string | null;
     await loggedOutTest.step('Check a user doesn\'t have a default profile image', async () => {
       await signInPage.openPage();
-      await signInPage.signInWithEmail(testUser2.users.QaAutoUser2.email, testUser1.users.QaAutoUser2.password);
+      await signInPage.signInWithEmail(testUsers.users.QaAutoUser2.email, testUsers.users.QaAutoUser2.password);
       await profileSettingsPage.openPage();
       imgElement = await header.profileImage;
       src1 = await imgElement.getAttribute('src');

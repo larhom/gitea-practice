@@ -1,13 +1,14 @@
 import { test, expect } from "@playwright/test";
-import { testApiUsers } from "../../testdata/users";
+import { loadTestUsers } from '../../utils/loadTestUsers';
 
-const token = testApiUsers.QaAutoUser1.apiKey;
-const username1 = testApiUsers.QaAutoUser1.username;
-const username2 = testApiUsers.QaAutoUser2.username;
-const fullName = testApiUsers.QaAutoUser1.fullName;
-const biography = testApiUsers.QaAutoUser1.biography;
-const website = testApiUsers.QaAutoUser1.website;
-const location = testApiUsers.QaAutoUser1.location;
+const testApiUsers = loadTestUsers();
+const token = testApiUsers.users.QaAutoUser2.apiKey;
+const username1 = testApiUsers.users.QaAutoUser1.username;
+const username2 = testApiUsers.users.QaAutoUser2.username;
+const fullName = testApiUsers.users.QaAutoUser2.fullName;
+const biography = testApiUsers.users.QaAutoUser2.biography;
+const website = testApiUsers.users.QaAutoUser2.website;
+const location = testApiUsers.users.QaAutoUser2.location;
 
 test("Get authenticated user", async ({ request }) => {
   const response = await request.get("/api/v1/user", {
@@ -17,7 +18,7 @@ test("Get authenticated user", async ({ request }) => {
   });
   expect(response.status()).toBe(200);
   const body = await response.json();
-  expect(body.login).toBe(`${username1}`);
+  expect(body.login).toBe(`${username2}`);
 });
 
 test("Get user settings", async ({ request }) => {
@@ -73,7 +74,7 @@ test.describe("Add a following user", () => {
   });
 
   test("Follow a user", async ({ request }) => {
-    const response = await request.put(`/api/v1/user/following/${username2}`, {
+    const response = await request.put(`/api/v1/user/following/${username1}`, {
       headers: {
         Authorization: `token ${token}`,
       },
@@ -83,7 +84,7 @@ test.describe("Add a following user", () => {
 
   test.afterEach(async ({ request }) => {
     const response = await request.delete(
-      `/api/v1/user/following/${username2}`,
+      `/api/v1/user/following/${username1}`,
       {
         headers: {
           Authorization: `token ${token}`,
@@ -96,7 +97,7 @@ test.describe("Add a following user", () => {
 
 test.describe("Unfollow a user", () => {
   test.beforeEach(async ({ request }) => {
-    const response = await request.put(`/api/v1/user/following/${username2}`, {
+    const response = await request.put(`/api/v1/user/following/${username1}`, {
       headers: {
         Authorization: `token ${token}`,
       },
@@ -106,7 +107,7 @@ test.describe("Unfollow a user", () => {
 
   test("Delete following user", async ({ request }) => {
     const response = await request.delete(
-      `/api/v1/user/following/${username2}`,
+      `/api/v1/user/following/${username1}`,
       {
         headers: {
           Authorization: `token ${token}`,

@@ -1,9 +1,11 @@
 import { test, expect } from "@playwright/test";
-import { testApiUsers } from "../../testdata/users";
+import { loadTestUsers } from '../../utils/loadTestUsers';
+
+const testApiUsers = loadTestUsers();
 
 test.describe("Repository API tests", () => {
-  const token = testApiUsers.QaAutoUser1.apiKey;
-  const owner = testApiUsers.QaAutoUser1.username;
+  const token = testApiUsers.users.QaAutoUser2.apiKey;
+  const owner = testApiUsers.users.QaAutoUser2.username;
   let repo = "test-repo-1";
   let repoId: number;
 

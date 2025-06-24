@@ -10,7 +10,8 @@ export class UserGenerator {
             fullName: 'Klavdiia Petrivna',
             biography: 'Klavdiia Petrivna lorem ipsum',
             website: 'https://loremipsum1.com',
-            location: 'Kalynivka'
+            location: 'Kalynivka',
+            apiKey: ''
         },
 
         QaAutoUser2: {
@@ -21,7 +22,8 @@ export class UserGenerator {
             fullName: 'Klavdiy Petrovych',
             biography: 'Klavdiy Petrovych lorem ipsum',
             website: 'https://loremipsum2.net',
-            location: 'Yablunivka'
+            location: 'Yablunivka',
+            apiKey: ''
         },
     }
 }
