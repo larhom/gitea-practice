@@ -1,8 +1,6 @@
 import { expect } from '@playwright/test';
 import { test } from '../fixtures/not-auth-fixtures';
-import RegisterPage from '../pom/pages/RegisterPage';
 import { UserGenerator } from '../testdata/users';
-import MainPage from '../pom/pages/MainPage';
 import { errorMessages } from '../testdata/errors';
 
 test.describe ('Positive Sign Up tests', () => {

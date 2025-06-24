@@ -2,45 +2,8 @@ import { expect } from '@playwright/test';
 import { test } from '../fixtures/auth-fixture';
 import { test as loggedOutTest } from '../fixtures/not-auth-fixtures';
 import path from 'path';
-// import RegisterPage from '../pom/pages/RegisterPage';
-// import { UserGenerator } from '../testdata/users';
-// import SignInPage from '../pom/pages/SignInPage';
-// import MainPage from '../pom/pages/MainPage';
-// import ProfileSettingsPage from '../pom/pages/ProfileSettingsPage';
-// import Header from '../pom/modules/Header';
-// import ProfilePage from '../pom/pages/ProfilePage';
-// import UsersPage from '../pom/pages/UsersPage';
-// import { Locator } from '@playwright/test';
 import { loadTestUsers } from '../utils/loadTestUsers';
-// import { loadTestUser2 } from '../utils/loadTestUsers';
 import { Locator } from '@playwright/test';
-
-// let testUser = new UserGenerator();
-// test.describe ('Profile Settings tests', () => {
-//   let registerPage: RegisterPage;
-//   let testUser: UserGenerator;
-//   let mainPage: MainPage;
-//   let signInPage: SignInPage;
-//   let profileSettingsPage: ProfileSettingsPage;
-//   let header: Header;
-//   let profilePage: ProfilePage;
-//   let usersPage: UsersPage;
-
-//   test.beforeAll (async({ page }) => {
-//     registerPage = new RegisterPage (page);
-//     mainPage = new MainPage (page);
-//     testUser = new UserGenerator;
-//     header = new Header (page);
-//     signInPage = new SignInPage (page);
-//     profileSettingsPage = new ProfileSettingsPage (page);
-//     profilePage = new ProfilePage (page);
-//     usersPage = new UsersPage (page);
-//   })
-
-//   test.beforeEach (async({ storageStatePage }) => {
-//     await storageStatePage.
-//     await header.openSettingsPage();
-//   })
 
 test.describe ('Profile Settings tests', () => {
   let testUsers: any;
@@ -117,39 +80,10 @@ test.describe ('Profile Settings tests', () => {
 test.describe ('Profile Settings tests that require the second user', () => {
 
   let testUsers: any;
-  // let testUser2: any
+  
   loggedOutTest.beforeEach  (async({ }) => {
     testUsers = loadTestUsers();
-    // testUser2 = loadTestUser2();
   })
-//   let registerPage: RegisterPage;
-//   let testUser: UserGenerator;
-//   let mainPage: MainPage;
-//   let signInPage: SignInPage;
-//   let profileSettingsPage: ProfileSettingsPage;
-//   let header: Header;
-//   let profilePage: ProfilePage;
-//   let usersPage: UsersPage;
-
-//   test.beforeAll (async({ page }) => {
-//     registerPage = new RegisterPage (page);
-//     mainPage = new MainPage (page);
-//     testUser = new UserGenerator;
-//     header = new Header (page);
-//     signInPage = new SignInPage (page);
-//     profileSettingsPage = new ProfileSettingsPage (page);
-//     profilePage = new ProfilePage (page);
-//     usersPage = new UsersPage (page);
-//     await registerPage.openPage();
-//     await registerPage.registerWithCredentials(testUser.users.QaAutoUser1.username, testUser.users.QaAutoUser1.email, testUser.users.QaAutoUser1.password);
-//     await expect (mainPage.accountCreatedMessage).toHaveText('Account was successfully created. Welcome!');
-//     await expect (mainPage.switchDashboardDropdown).toHaveText(testUser.users.QaAutoUser1.username);
-//     await header.signOut();
-//     await registerPage.openPage();
-//     await registerPage.registerWithCredentials(testUser.users.QaAutoUser2.username, testUser.users.QaAutoUser2.email, testUser.users.QaAutoUser2.password);
-//     await expect (mainPage.accountCreatedMessage).toHaveText('Account was successfully created. Welcome!');
-//     await expect (mainPage.switchDashboardDropdown).toHaveText(testUser.users.QaAutoUser2.username);
-//   })
 
   loggedOutTest('Profile visibility can be changed to limited on the profile settings page', async ({ usersPage, signInPage, header, profileSettingsPage, mainPage }) => {
     await loggedOutTest.step('Check the user is visible in the list of users by default', async () => {

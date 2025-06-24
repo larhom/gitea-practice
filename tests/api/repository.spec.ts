@@ -1,11 +1,13 @@
 import { test, expect } from "@playwright/test";
 import { loadTestUsers } from '../../utils/loadTestUsers';
+import RepositoryService from "../../api-services/RepositoryService";
 
 test.describe("Repository API tests", () => {
   let token: string;
   let owner: string;
   let repo = "test-repo-1";
   let repoId: number;
+  let repositoryService: RepositoryService;
 
   test.beforeAll(() => {
     const testApiUsers = loadTestUsers();
@@ -14,76 +16,47 @@ test.describe("Repository API tests", () => {
   });
 
   test.beforeEach(async ({ request }) => {
-    const response = await request.post("/api/v1/user/repos", {
-      headers: {
-        Authorization: `token ${token}`,
-      },
-      data: {
-        name: `${repo}`,
-      },
-    });
+    repositoryService = new RepositoryService(request);
+    const response = await repositoryService.createRepository(token, repo);
     expect(response.status()).toBe(201);
     const body = await response.json();
     expect(body.name).toBe(`${repo}`);
     repoId = body.id;
   });
 
-  test("Get repo by Id", async ({ request }) => {
-    const response = await request.get(`/api/v1/repositories/${repoId}`, {
-      headers: {
-        Authorization: `token ${token}`,
-      },
-    });
+  test("Get repo by Id", async () => {
+    const response = await repositoryService.getRepositoryById(token, repoId);
     expect(response.status()).toBe(200);
     const body = await response.json();
     expect(body.name).toBe(`${repo}`);
   });
 
-  test('Search a repo', async({ request }) => {
-    const response = await request.get(`/api/v1/repos/search?q=${repo}`);
+  test('Search a repo', async() => {
+    const response = await repositoryService.searchRepository(repo);
     expect(response.status()).toBe(200);
     const body = await response.json();
     expect(body.data[0].name).toBe(`${repo}`);
     expect(body.data[0].full_name).toBe(`${owner}/${repo}`);
   })
 
-  test("Update a repository", async ({ request }) => {
-    const response = await request.patch(`/api/v1/repos/${owner}/${repo}`, {
-      headers: {
-        Authorization: `token ${token}`,
-      },
-      data: {
-        name: `${repo}-updated`,
-      },
-    });
+  test("Update a repository", async () => {
+    const response = await repositoryService.updateRepository(token, owner, repo);
     expect(response.status()).toBe(200);
     const body = await response.json();
     expect(body.name).toBe(`${repo}-updated`);
     repo = body.name;
   });
 
-  test('Delete a repository', async ({ request }) => {
-    const response = await request.delete(`/api/v1/repos/${owner}/${repo}`, {
-        headers: {
-          Authorization: `token ${token}`,
-        },
-      });
+  test('Delete a repository', async () => {
+    const response = await repositoryService.deleteRepository(token, owner, repo);
       expect(response.status()).toBe(204);
   })
 
-  test.afterEach(async ({ request }) => {
-    const repoExists = await request.get(`/api/v1/repositories/${repoId}`, {
-      headers: {
-        Authorization: `token ${token}`,
-      },
-    });
+  test.afterEach(async () => {
+    const repoExists = await repositoryService.getRepositoryById(token, repoId);
     if (repoExists.status() === 200) {
-      const response = await request.delete(`/api/v1/repos/${owner}/${repo}`, {
-        headers: {
-          Authorization: `token ${token}`,
-        },
-      });
-      expect(response.status()).toBe(204);
+      const deleteRepo = await repositoryService.deleteRepository(token, owner, repo);
+      expect(deleteRepo.status()).toBe(204);
     }
   });
 });
