@@ -1,5 +1,5 @@
 import { Locator } from "@playwright/test";
-import BasePage from "../basePage";
+import BasePage from "../BasePage";
 
 export default class MainPage extends BasePage {
     readonly accountCreatedMessage: Locator = this.page.locator('[class="ui positive message flash-message flash-success"]');

@@ -1,5 +1,5 @@
 import { Locator } from "@playwright/test";
-import BasePage from "../basePage";
+import BasePage from "../BasePage";
 import { UserGenerator } from "../../testdata/users";
 
 export default class ProfilePage extends BasePage {

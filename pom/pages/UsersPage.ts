@@ -1,5 +1,5 @@
 import { Locator } from "@playwright/test";
-import BasePage from "../basePage";
+import BasePage from "../BasePage";
 
 export default class UsersPage extends BasePage {
     readonly searchField: Locator = this.page.locator('input[type="search"]');
