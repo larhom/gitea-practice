@@ -1,5 +1,5 @@
 import { expect, Locator } from "@playwright/test";
-import BasePage from "../basePage";
+import BasePage from "../BasePage";
 
 export default class RegisterPage extends BasePage {
     readonly formName: Locator = this.page.locator('[class = "ui top attached header center"]');

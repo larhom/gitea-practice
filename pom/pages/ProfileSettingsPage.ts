@@ -1,5 +1,5 @@
 import { Locator, expect } from "@playwright/test";
-import BasePage from "../basePage";
+import BasePage from "../BasePage";
 
 export default class ProfileSettingsPage extends BasePage {
   readonly usernameField: Locator = this.page.locator("#username");
@@ -11,7 +11,7 @@ export default class ProfileSettingsPage extends BasePage {
     'svg[class="dropdown icon svg octicon-triangle-down"]'
   );
   readonly limitedVisibilityOption: Locator =
-    this.page.locator("#_aria_auto_id_16");
+    this.page.locator('[aria-label="Visible only to authenticated users"]');
   readonly hideEmailAddressCheckbox: Locator =
     this.page.locator("#_aria_auto_id_0");
   readonly updateProfileButton: Locator = this.page.locator(
