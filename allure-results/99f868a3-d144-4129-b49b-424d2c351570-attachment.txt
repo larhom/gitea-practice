@@ -1,0 +1,27 @@
+[
+  {
+    id: 421,
+    login: 'QaAuto_user21750601212037',
+    login_name: '',
+    source_id: 0,
+    full_name: '',
+    email: 'larhom+QaAuto_user21750601212037@qamadness.com',
+    avatar_url: 'http://localhost:3000/avatars/0eda1ac68aaf58e540099cbd7533d7c1',
+    html_url: 'http://localhost:3000/QaAuto_user21750601212037',
+    language: '',
+    is_admin: false,
+    last_login: '0001-01-01T00:00:00Z',
+    created: '2025-06-22T14:06:52Z',
+    restricted: false,
+    active: false,
+    prohibit_login: false,
+    location: '',
+    website: '',
+    description: '',
+    visibility: 'public',
+    followers_count: 2,
+    following_count: 0,
+    starred_repos_count: 0,
+    username: 'QaAuto_user21750601212037'
+  }
+]

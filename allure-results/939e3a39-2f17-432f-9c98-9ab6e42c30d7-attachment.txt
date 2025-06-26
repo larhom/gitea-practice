@@ -1,0 +1,8 @@
+APIResponse: 200 OK
+  Cache-Control: max-age=0, private, must-revalidate, no-transform
+  Content-Type: text/html; charset=utf-8
+  Set-Cookie: i_like_gitea=f1c951fb4abf3dda; Path=/; HttpOnly; SameSite=Lax
+  Set-Cookie: _csrf=gwVhYjwajrw0gqYEAmrU_A9RdvY6MTc1MDU5NTYyNTY1OTI0ODY2NQ; Path=/; Max-Age=86400; HttpOnly; SameSite=Lax
+  X-Frame-Options: SAMEORIGIN
+  Date: Sun, 22 Jun 2025 12:33:45 GMT
+  Transfer-Encoding: chunked

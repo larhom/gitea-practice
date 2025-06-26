@@ -1,0 +1,32 @@
+APIResponse: 200 OK
+  Cache-Control: max-age=0, private, must-revalidate, no-transform
+  Content-Type: application/json;charset=utf-8
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Date: Sun, 22 Jun 2025 14:16:48 GMT
+  Content-Length: 618
+{
+  id: 420,
+  login: 'QaAuto_user11750601210964',
+  login_name: '',
+  source_id: 0,
+  full_name: '',
+  email: 'larhom+QaAuto_user11750601210964@qamadness.com',
+  avatar_url: 'http://localhost:3000/avatars/66ced46326d43163c577c8f29e602c99',
+  html_url: 'http://localhost:3000/QaAuto_user11750601210964',
+  language: 'en-US',
+  is_admin: false,
+  last_login: '2025-06-22T14:13:52Z',
+  created: '2025-06-22T14:06:51Z',
+  restricted: false,
+  active: true,
+  prohibit_login: false,
+  location: '',
+  website: '',
+  description: '',
+  visibility: 'public',
+  followers_count: 0,
+  following_count: 0,
+  starred_repos_count: 0,
+  username: 'QaAuto_user11750601210964'
+}

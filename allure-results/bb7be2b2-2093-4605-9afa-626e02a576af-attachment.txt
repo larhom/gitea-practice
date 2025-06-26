@@ -1,0 +1,25 @@
+Loaded test user: {
+  randomSuffix: 1748815110919,
+  users: {
+    QaAutoUser1: {
+      randomSuffix: 1748815110919,
+      username: 'QaAuto_user11748815110919',
+      email: 'larhom+QaAuto_user11748815110919@qamadness.com',
+      password: 'Qa_test123',
+      fullName: 'Klavdiia Petrivna',
+      biography: 'Klavdiia Petrivna lorem ipsum',
+      website: 'https://loremipsum1.com',
+      location: 'Kalynivka'
+    },
+    QaAutoUser2: {
+      randomSuffix: 1748815110919,
+      username: 'QaAuto_user21748815110919',
+      email: 'larhom+QaAuto_user21748815110919@qamadness.com',
+      password: 'Qa_test123',
+      fullName: 'Klavdiy Petrovych',
+      biography: 'Klavdiy Petrovych lorem ipsum',
+      website: 'https://loremipsum2.net',
+      location: 'Yablunivka'
+    }
+  }
+}

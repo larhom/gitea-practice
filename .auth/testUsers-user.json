@@ -1,0 +1,26 @@
+{
+  "users": {
+    "QaAutoUser1": {
+      "randomSuffix": 1750808389211,
+      "username": "QaAuto_user11750808389211",
+      "email": "larhom+QaAuto_user11750808389211@qamadness.com",
+      "password": "Qa_test123",
+      "fullName": "Klavdiia Petrivna",
+      "biography": "Klavdiia Petrivna lorem ipsum",
+      "website": "https://loremipsum1.com",
+      "location": "Kalynivka",
+      "apiKey": "d135c972c660ded0ba759c9d5c52f265ce4a4818"
+    },
+    "QaAutoUser2": {
+      "randomSuffix": 1750808389211,
+      "username": "QaAuto_user21750808389211",
+      "email": "larhom+QaAuto_user21750808389211@qamadness.com",
+      "password": "Qa_test123",
+      "fullName": "Klavdiy Petrovych",
+      "biography": "Klavdiy Petrovych lorem ipsum",
+      "website": "https://loremipsum2.net",
+      "location": "Yablunivka",
+      "apiKey": "77831266db68e57dd487077fb1e16171655f2963"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  full_name: 'Test API1750618468945',
+  website: 'https://loremipsum1.com1750618468945',
+  description: 'Test API lorem ipsum1750618468945',
+  location: 'Paris1750618468945',
+  language: 'en-US',
+  theme: 'gitea-auto',
+  diff_view_style: '',
+  hide_email: false,
+  hide_activity: false
+}

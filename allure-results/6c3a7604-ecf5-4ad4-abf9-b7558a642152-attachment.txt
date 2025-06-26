@@ -1,0 +1,4 @@
+{
+  message: '[]: Empty Content-Type',
+  url: 'http://localhost:3000/api/swagger'
+}
